@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Sofia ❤️</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #e92842;
+    background-image: radial-gradient(
+        circle, #171717 25%, transparent 27%
+    );
+    background-size: 85px 85px;
+    font-family: Georgia, serif;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.cartinha {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 540px;
+    padding: 35px 25px;
+    background: #fffafc;
+    border: 4px solid #202020;
+    border-radius: 25px;
+    box-shadow: 0 12px 35px #0005;
+    animation: aparecer 1s ease;
+}
+
+h1 { color: #e92842; }
+
+h2 {
+    font-size: 17px;
+    font-weight: normal;
+    color: #777;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.8;
+    white-space: pre-line;
+    color: #533747;
+}
+
+button {
+    background: #e92842;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 6px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #bd1730;
+    transform: scale(1.05);
+}
+
+.secundario { background: #23834d; }
+
+.coracao {
+    font-size: 45px;
+    animation: pulsar 1.5s infinite;
+}
+
+.contador, .assinatura {
+    color: #888;
+    font-size: 14px;
+    margin-top: 18px;
+}
+
+.flutuante {
+    position: fixed;
+    z-index: 1;
+    bottom: -40px;
+    pointer-events: none;
+    animation: subir 5s linear forwards;
+}
+
+@keyframes pulsar {
+    50% { transform: scale(1.2); }
+}
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes subir {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-110vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+<div class="cartinha">
+
+<div class="coracao">🐞❤️🐈‍⬛</div>
+
+<h1>Para você, Sofia 💌</h1>
+<h2>Uma cartinha para minha melhor amiga</h2>
+
+<p id="mensagem">Oi, Sofia! ❤️
+
+Preparei uma pequena surpresa para você.
+
+Existem sentimentos que merecem ser
+expressos de um jeito especial.
+
+Clique para abrir sua cartinha! 💗</p>
+
+<button id="proximo" onclick="avancar()">
+Abrir cartinha 💌
+</button>
+
+<button class="secundario"
+onclick="reiniciar()">Recomeçar 🐞</button>
+
+<div class="contador" id="contador"></div>
+
+<div class="assinatura">
+Com carinho, Kaio ❤️
+</div>
+
+</div>
+
+<script>
+const mensagens = [
+
+`Sofia, existem pessoas que chegam à nossa vida e, sem perceber, acabam se tornando parte das nossas lembranças mais bonitas. E você, sem dúvida alguma, é uma dessas pessoas.
+
+Eu queria fazer algo especial para agradecer não apenas pelos momentos felizes, mas também por todos aqueles em que você esteve ao meu lado quando eu mais precisava.
+
+Porque, para mim, você nunca foi apenas uma amiga. Você se tornou minha melhor amiga, alguém que eu tenho um carinho imenso e que ocupa um lugar muito especial no meu coração. ❤️`,
+
+`Sabe, Sofia, uma das coisas que mais me marcam na nossa amizade é lembrar das vezes em que eu não estava bem.
+
+Principalmente daqueles dias no curso em que eu ficava triste, às vezes chorava e nem sempre conseguia explicar o que estava sentindo.
+
+E mesmo quando eu não dizia absolutamente nada, você percebia.
+
+Você se aproximava, me abraçava e, de alguma forma, fazia aquele momento ficar um pouquinho mais leve.
+
+Talvez você nunca tenha percebido o quanto esses pequenos gestos significaram para mim. Mas eu percebi. E nunca vou esquecer. 💗`,
+
+`Às vezes, a gente pensa que precisa fazer algo extraordinário para demonstrar que se importa com alguém.
+
+Mas você me ensinou, mesmo sem perceber, que o carinho também mora nas coisas mais simples.
+
+Em um abraço inesperado, em perceber quando o outro não está bem, em ficar por perto mesmo quando não existem palavras capazes de resolver tudo.
+
+E eu sou muito grato porque, em tantos momentos, você escolheu estar ali.
+
+Obrigado por cuidar de mim com tanto carinho. Espero também conseguir fazer você se sentir acolhida, amada e importante, porque é exatamente isso que você é para mim. 🌷`,
+
+`Entre tantas lembranças que tenho de nós dois, existe uma que guardo com um carinho especial: o dia em que fomos juntos à missa, em 2026.
+
+Pode até parecer um momento simples, mas para mim foi muito bonito ter você ali, ao meu lado.
+
+Não foi apenas sobre o lugar onde estávamos, mas sobre a companhia, sobre compartilhar aquele momento e sobre a felicidade de estar perto de alguém tão importante.
+
+São essas lembranças que me fazem perceber como nossa amizade é preciosa.
+
+E eu espero que a vida ainda nos permita viver muitos outros momentos assim. ❤️`,
+
+`Sofia, uma das coisas mais bonitas da nossa amizade é sentir que existe um carinho verdadeiro entre nós.
+
+Não é apenas sobre estar junto nos dias felizes, dar risada ou conversar sobre qualquer coisa.
+
+É também sobre perceber quando o outro precisa de apoio, respeitar seus momentos e demonstrar que ele não precisa enfrentar tudo sozinho.
+
+Eu gosto muito dessa relação de cuidado que construímos.
+
+E quero que você saiba que, assim como você esteve ao meu lado, eu também quero estar ao seu, nos momentos bons e nos difíceis.
+
+Porque sua felicidade importa muito para mim. 💕`,
+
+`Já que nós gostamos tanto de Miraculous, queria fazer uma comparação.
+
+Na série, os Miraculous concedem poderes extraordinários. Mas, na vida real, acredito que algumas pessoas conseguem fazer coisas extraordinárias sem precisar de magia.
+
+Você, por exemplo, já conseguiu transformar dias difíceis em momentos mais leves com um simples abraço.
+
+E talvez esse seja um dos significados mais bonitos de um milagre: encontrar alguém cuja presença faz diferença na nossa vida.
+
+Não porque essa pessoa tenha o poder de resolver todos os problemas, mas porque, ao lado dela, tudo parece um pouquinho menos difícil.
+
+E você é uma dessas pessoas para mim, Sofia. 🐞❤️`,
+
+`Sofia, se eu pudesse resumir tudo isso em poucas palavras, acho que seriam: muito obrigado por existir na minha vida.
+
+Obrigado por cada risada, cada conversa, cada abraço, cada momento compartilhado e, principalmente, por todas as vezes em que você esteve presente quando meu coração não estava tão bem.
+
+Eu admiro muito a pessoa que você é, e tenho um carinho enorme por tudo aquilo que construímos juntos.
+
+Quero que você nunca se esqueça do quanto é especial, do quanto merece ser feliz e do quanto sua amizade significa para mim.
+
+Eu te amo, Sofia. ❤️
+
+E não digo isso apenas pelos momentos felizes, mas também por todos aqueles em que nossa amizade mostrou o quanto é verdadeira.
+
+Obrigado por ser minha melhor amiga.
+
+Com todo o carinho do mundo, Kaio. 💗`
+];
+
+let indice = 0;
+
+function avancar() {
+    document.getElementById("mensagem").innerText =
+        mensagens[indice];
+
+    document.getElementById("contador").innerText =
+        `${indice + 1} de ${mensagens.length} ❤️`;
+
+    criarCoracoes();
+    indice++;
+
+    document.getElementById("proximo").innerText =
+        indice >= mensagens.length
+        ? "Ler novamente 💗"
+        : "Continuar 💌";
+
+    if (indice >= mensagens.length) indice = 0;
+}
+
+function reiniciar() {
+    indice = 0;
+    document.getElementById("mensagem").innerText =
+        "Oi, Sofia! ❤️\n\nPreparei uma pequena surpresa para você.\n\nClique para abrir sua cartinha! 💗";
+    document.getElementById("contador").innerText = "";
+    document.getElementById("proximo").innerText =
+        "Abrir cartinha 💌";
+}
+
+function criarCoracoes() {
+    const simbolos = ["❤️", "🐞", "💚", "✨", "💕"];
+    for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+            const elemento = document.createElement("span");
+            elemento.className = "flutuante";
+            elemento.innerText =
+                simbolos[Math.floor(Math.random() * simbolos.length)];
+            elemento.style.left = Math.random() * 100 + "vw";
+            elemento.style.fontSize =
+                (15 + Math.random() * 20) + "px";
+            document.body.appendChild(elemento);
+            setTimeout(() => elemento.remove(), 5000);
+        }, i * 100);
+    }
+}
+</script>
+</body>
+</html>
